@@ -1,0 +1,28 @@
+//
+// Do any local configuration here
+//
+
+// Consider adding the 1918 zones here, if they are not used in your
+// organization
+//include "/etc/bind/zones.rfc1918";
+
+/* Zona hacia adelante */
+zone "empresa.local.com" {
+    type slave;
+    file "/var/cache/bind/db.empresa.local.com";
+    masters { 192.168.70.3; }; // IP del servidor maestro
+};
+/* Zona hacia adelante */
+zone "edwin.com" {
+    type slave;
+    file "/var/cache/bind/db.edwin.com";
+    masters { 192.168.70.3; }; // IP del servidor maestro
+};
+
+/* Zona inversa */
+zone "70.168.192.in-addr.arpa" {
+    type slave;
+    file "/var/cache/bind/db.192";
+    masters { 192.168.70.3; };
+};
+
