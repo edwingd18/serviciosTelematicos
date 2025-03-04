@@ -1,0 +1,36 @@
+//
+// Do any local configuration here
+//
+
+// Consider adding the 1918 zones here, if they are not used in your
+// organization
+//include "/etc/bind/zones.rfc1918";
+
+
+
+/* Zona hacia adelante */
+zone "empresa.local.com" {
+    type master;
+    file "/etc/bind/db.empresa.local.com";
+    allow-transfer { 192.168.70.2; }; // IP del servidor esclavo
+    also-notify { 192.168.70.2; }; // Notifica al esclavo de cambios
+};
+
+
+/* Zona hacia adelante edwin.com */
+zone "edwin.com" {
+    type master;
+    file "/etc/bind/db.edwin.com";
+    allow-transfer { 192.168.70.2; }; // IP del servidor esclavo
+    also-notify { 192.168.70.2; }; // Notifica al esclavo de cambios
+};
+
+/* Zona inversa */
+zone "70.168.192.in-addr.arpa" {
+    type master;
+    file "/etc/bind/db.192";
+    allow-transfer { 192.168.70.2; };
+    also-notify { 192.168.70.2; };
+};
+
+
